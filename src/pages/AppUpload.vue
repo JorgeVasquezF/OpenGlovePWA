@@ -14,44 +14,43 @@
           style="min-height: 200px;"
         >
         	<div class="q-pa-md q-gutter-y-md" style="max-width: 800px">
-  	        <q-input outlined bottom-slots v-model="name" type="email" label="Nombre de la aplicacion" hint="Rainbow Six Siege"
+  	        <q-input outlined bottom-slots v-model="name" type="email" label="Nombre de la aplicación" hint="Rainbow Six Siege"
   	        :rules="[ val => val.length >= 3 || 'Debe contener al menos 3 caracteres']" >
-  	                    <template v-slot:prepend>
-  	                      <q-icon name="title" />
-  	                    </template>
-  	                    <template v-slot:append>
-  	                      <q-icon name="close" @click="name = ''" class="cursor-pointer" />
-  	                    </template>
-  	                  </q-input>
-  	                  <q-input outlined bottom-slots v-model="image" type="email" label="Link de imagen (Opcional)" hint="https://www.example.com/image.jpg" >
-  	                    <template v-slot:prepend>
-  	                      <q-icon name="image" />
-  	                    </template>
-  	                    <template v-slot:append>
-  	                      <q-icon name="close" @click="image = ''" class="cursor-pointer" />
-  	                    </template>
-  	                  </q-input>
-  	                  <q-input outlined bottom-slots v-model="video" type="email" label="Link de video (Opcional)"  hint="https://www.youtube.com/embed/id" >
-  	                    <template v-slot:prepend>
-  	                      <q-icon name="video_library" />
-  	                    </template>
-  	                    <template v-slot:append>
-  	                      <q-icon name="close" @click="video = ''" class="cursor-pointer" />
-  	                    </template>
-  	                  </q-input>
-  	              </div>
-  	    <q-stepper-navigation>
-  	    <template v-if="name.length >= 5">
-  	    	<q-btn @click="$refs.stepper.next()" color="primary" :label="'Continuar'" />
-  	    </template>
-  	    <template v-if="name.length < 5">
-  	    	<q-btn  color="primary" :label="'Continuar'" >
-  	    		<q-tooltip content-class="bg-red" :offset="[10, 10]">
-  		          Completa el nombre
-  		        </q-tooltip>
-  	    	</q-btn>
-  	    </template>
-            
+              <template v-slot:prepend>
+                <q-icon name="title" />
+              </template>
+              <template v-slot:append>
+                <q-icon name="close" @click="name = ''" class="cursor-pointer" />
+              </template>
+            </q-input>
+            <q-input outlined bottom-slots v-model="image" type="email" label="Link de imagen (Opcional)" hint="https://www.example.com/image.jpg" >
+              <template v-slot:prepend>
+                <q-icon name="image" />
+              </template>
+              <template v-slot:append>
+                <q-icon name="close" @click="image = ''" class="cursor-pointer" />
+              </template>
+            </q-input>
+            <q-input outlined bottom-slots v-model="video" type="email" label="Link de video (Opcional)"  hint="https://www.youtube.com/embed/id" >
+              <template v-slot:prepend>
+                <q-icon name="video_library" />
+              </template>
+              <template v-slot:append>
+                <q-icon name="close" @click="video = ''" class="cursor-pointer" />
+              </template>
+            </q-input>
+          </div>
+    	    <q-stepper-navigation>
+      	    <template v-if="name.length >= 5">
+      	    	<q-btn @click="$refs.stepper.next()" color="primary" :label="'Continuar'" />
+      	    </template>
+      	    <template v-if="name.length < 5">
+      	    	<q-btn  color="primary" :label="'Continuar'" >
+      	    		<q-tooltip content-class="bg-red" :offset="[10, 10]">
+      		          Completa el nombre
+      		        </q-tooltip>
+      	    	</q-btn>
+      	    </template>
             <q-btn v-if="step > 1" flat color="primary" @click="$refs.stepper.previous()" label="Back" class="q-ml-sm" />
           </q-stepper-navigation>
         </q-step>
@@ -63,10 +62,9 @@
           :done="step > 2"
           style="min-height: 200px;"
         >
-          
           <div class="q-pa-md" style="max-width: 250px">
             <div class="text-subtitle1 text-weight-bold text-center" style="color: #000000" >
-              Categorias
+              Categorías
             </div>
             <q-select
               transition-show="flip-up"
@@ -84,42 +82,39 @@
               style="max-width: 800px"
             />
           </div>
-  			 <div class="q-pa-md text-subtitle1 text-weight-bold" style="color: #000000; max-width: 250px" >
-          <div class="text-center" >
-              Plataforma
-          </div>
-  			    <q-option-group
-  			      :options="options"
-  			      label="Notifications"
-  			      type="radio"
-  			      v-model="group"
-  			    />
-  			  </div>
-  		  <div class="q-pa-md " style="max-width: 1600px">
-          <div class="text-subtitle1 text-weight-bold text-center" style="color: #000000" >
-              Descripción
-          </div>
-  		    <q-input
-  		      v-model="textareaDescription"
-  		      filled
-  		      type="textarea"
-  		    />
-  		  </div>
-
-           <q-stepper-navigation>
+  			  <div class="q-pa-md text-subtitle1 text-weight-bold" style="color: #000000; max-width: 250px" >
+            <div class="text-center" >
+                Plataforma
+            </div>
+    			    <q-option-group
+    			      :options="options"
+    			      label="Notifications"
+    			      type="radio"
+    			      v-model="group"
+    			    />
+    			</div>
+    		  <div class="q-pa-md " style="max-width: 1600px">
+            <div class="text-subtitle1 text-weight-bold text-center" style="color: #000000" >
+                Descripción
+            </div>
+    		    <q-input
+    		      v-model="textareaDescription"
+    		      filled
+    		      type="textarea"
+    		    />
+    		  </div>
+          <q-stepper-navigation>
            	<template  v-if="selectTags.length > 0 && group != null && textareaDescription != ''" >
            		<q-btn @click="$refs.stepper.next()" color="primary" :label="'Continuar'" >
-  	    	</q-btn>
-  		    	
-  		    </template>
-  		    <template  v-if="selectTags.length <= 0 || group == null || textareaDescription == ''" >
-  		    	<q-btn  color="primary" :label="'Continuar'" >
-  	    		<q-tooltip content-class="bg-red" :offset="[10, 10]">
-  		          Completa todos los campos
-  		        </q-tooltip>
-  	    	</q-btn>
-  		    </template>
-  		    
+  	    	    </q-btn>
+            </template>
+    		    <template  v-if="selectTags.length <= 0 || group == null || textareaDescription == ''" >
+    		    	<q-btn  color="primary" :label="'Continuar'" >
+      	    		<q-tooltip content-class="bg-red" :offset="[10, 10]">
+      		        Completa todos los campos
+      		      </q-tooltip>
+    	         </q-btn>
+    		    </template>
             <q-btn v-if="step > 1" flat color="primary" @click="$refs.stepper.previous()" label="Atras" class="q-ml-sm" />
           </q-stepper-navigation>
         </q-step>
@@ -142,7 +137,7 @@
               </template>
             </q-input>
             <div class="q-pa-md" style="max-width: 1600px; color: #000000" >
-                <div class="text-center" >
+                <div class="text-center text-weight-bold" >
                 Documentación
             </div>
               <q-input
@@ -304,12 +299,6 @@ export default {
           for (var i = 0; i < this.selectTags.length; i++) {
             var data = {"name": this.selectTags[i]}
             var json = JSON.stringify(data);
-            /*this.$http.post("/tags",json)
-            .then(response => {          
-            })
-            .catch(error => {
-              console.log("error")
-            })*/
             this.$axios.post("/api/v1/apps/"+this.idApp+"/tags",json)
             .then(response => {       
             })

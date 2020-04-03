@@ -21,14 +21,37 @@
 	        </a>
 	        <div class="q-mt-sm" >
 	        	<q-chip outline size="md" color="primary" text-color="white">
-		        	Acción
+		        	{{value[0]}}
 		      	</q-chip>
-	        </div>
-	        
+	        </div> 
 			</div>
 		</div>
-
-   
+		<div class="row q-col-gutter-lg q-pa-md" v-if="busqueda == 0">
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" v-for="(app, $index) in aplications" :key="$index">
+				<a v-bind:href="'#/aplication/'+ app.id">
+	        <q-img
+	          :ratio="16/9"
+	          v-bind:src="app.image_url"
+	          style="width: 100%"
+	          class="zoom"
+	        >
+	          <div class="absolute-bottom text-subtitle1 text-center text-white q-pa-xs">
+	            <a v-bind:href="'#/aplication/'+ app.id" style="color: #00d999; text-decoration: none;"> {{app.name}} </a>
+	          </div>
+	          <div v-if="app.published == false">
+	            <q-badge color="red">
+	              No verificada <q-icon name="warning" color="white" class="q-ml-xs" />
+	            </q-badge>
+	          </div>
+	          <div v-else-if="app.published == true">
+	            <q-badge color="green">
+	              Verificada <q-icon name="check" color="white" class="q-ml-xs" />
+	            </q-badge>
+	          </div>
+	        </q-img>
+	        </a>
+			</div>
+		</div>
 		<!--<h5>Acción</h5>
 		<div class="row q-col-gutter-lg">
 			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" v-for="(app, $index) in accion" :key="$index">
@@ -95,6 +118,8 @@
 				value: [],
 				isDisabled: false,
 				appsfilter: [],
+				aplications: [],
+				appsByTag: [],
 				busqueda: 0,
 
 			}
@@ -108,33 +133,9 @@
           }).catch(() => { alert('Error carga de apps') 
 
       		})
-			var data = {"name": "Acción"}
-      var json = JSON.stringify(data);
-			this.$axios.post("/api/v1/apps/filter",json)
-      .then(response => { 
-      this.accion = response.data 
-      })
-      .catch(error => {
-        console.log("error")
-      })
-      var data = {"name": "Deportes"}
-      var json = JSON.stringify(data);
-			this.$axios.post("/api/v1/apps/filter",json)
-      .then(response => { 
-      this.sports = response.data 
-      })
-      .catch(error => {
-        console.log("error")
-      })
-      var data = {"name": "Estrategia"}
-      var json = JSON.stringify(data);
-			this.$axios.post("/api/v1/apps/filter",json)
-      .then(response => { 
-      this.strategy = response.data 
-      })
-      .catch(error => {
-        console.log("error")
-      })
+      this.$axios.get("/api/v1/apps")
+        .then(request => { this.aplications = request.data.data
+          })
 		},
 		methods: {
 			onSelect (option) {

@@ -17,6 +17,16 @@
               <div class="absolute-bottom custom-caption" style="background-color: rgba(0, 0, 0, 0.79);">
                 <div class="text-h6">{{ app.name }}</div>
               </div>
+              <div v-if="app.published == false">
+                <q-badge color="red">
+                  No verificada <q-icon name="warning" color="white" class="q-ml-xs" />
+                </q-badge>
+              </div>
+              <div v-else-if="app.published == true">
+                <q-badge color="green">
+                  Verificada <q-icon name="check" color="white" class="q-ml-xs" />
+                </q-badge>
+              </div>
             </q-carousel-slide>
           </q-carousel>
           <q-carousel  
@@ -42,12 +52,23 @@
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" v-for="(app, $index) in aplications" :key="$index">
         <a v-bind:href="'#/aplication/'+ app.id">
         <q-img
+          :ratio="16/9"
           v-bind:src="app.image_url"
           style="width: 100%"
           class="zoom"
         >
           <div class="absolute-bottom text-subtitle1 text-center text-white q-pa-xs">
             <a v-bind:href="'#/aplication/'+ app.id" style="color: #00d999; text-decoration: none;"> {{app.name}} </a>
+          </div>
+          <div v-if="app.published == false">
+            <q-badge color="red">
+              No verificada <q-icon name="warning" color="white" class="q-ml-xs" />
+            </q-badge>
+          </div>
+          <div v-else-if="app.published == true">
+            <q-badge color="green">
+              Verificada <q-icon name="check" color="white" class="q-ml-xs" />
+            </q-badge>
           </div>
         </q-img>
         </a>   

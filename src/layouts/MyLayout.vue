@@ -19,7 +19,7 @@
         <q-tabs align="center" class="gt-xs">
           <q-route-tab to="/" label="Home" icon="home" />
           <q-route-tab to="/store" label="Store" icon="store" />
-          <q-route-tab to="/page3" label="Tools" icon="build"/>
+          <q-route-tab to="/tool" label="Tools" icon="build"/>
           <q-route-tab class="text-black" v-if="currentUser" to="/upload" label="Up App" icon="cloud_upload"/>
         </q-tabs>
         <!-- BOTONES DE MENU PARA ESCRITORIO !--> 
@@ -53,8 +53,8 @@
       <!-- MENU DE BARRA PARA MOBILE !-->
       <q-tabs  align="center" class="lt-sm" style="margin-top: 0px;">
           <q-route-tab to="/" label="Home" icon="home"/>
-          <q-route-tab to="/aplication" label="Store" icon="store"/>
-          <q-route-tab to="/page3" label="Tools" icon="build"/>
+          <q-route-tab to="/store" label="Store" icon="store"/>
+          <q-route-tab to="/tool" label="Tools" icon="build"/>
           <q-route-tab v-if="currentUser" to="/upload" label="Up App" icon="cloud_upload"/>
       </q-tabs>
       

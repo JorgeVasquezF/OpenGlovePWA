@@ -88,7 +88,10 @@ module.exports = function (ctx) {
       // Quasar plugins
       plugins: [
         'Notify'
-      ]
+      ],
+      config: {
+        notify: { /* Notify defaults */ }
+      }
     },
 
     supportIE: false,

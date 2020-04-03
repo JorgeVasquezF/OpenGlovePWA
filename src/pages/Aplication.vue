@@ -1,8 +1,38 @@
 <template>
   <!-- SI ESTA VERIFICADA !-->
-	<div v-if="aplication.published == true">
+	<div>
     <div class="q-pa-lg">
       <div class="row">
+        <div v-if="aplication.published == false && usercheck[0].role == 1" class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-6 offset-xl-3 offset-lg-2">
+          <q-banner rounded  inline-actions class="text-white bg-red q-mb-md">
+            Tu aplicación está siendo verificada.
+          </q-banner>
+        </div>
+        <div v-else-if="aplication.published == false && usercheck[0].role == 2" class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-6 offset-xl-3 offset-lg-2"> 
+          <div class="q-gutter-sm q-pa-md">
+            <q-banner rounded  inline-actions class="text-black bg-yellow">
+              Revisa la aplicación, luego escribe observaciones y califica.
+            </q-banner>
+            <q-input
+              v-model="comment"
+              filled
+              type="textarea"
+              dark
+            />
+            <q-btn color="primary" label="Aprobar" @click="checkApp()"/>
+            <q-btn color="red" label="Rechazar" />
+          </div> 
+        </div>
+        <div v-else-if="aplication.published == false " class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-6 offset-xl-3 offset-lg-2">
+          <q-banner rounded  inline-actions class="text-white bg-red q-mb-md">
+            Esta aplicación no ha sido verificada, está en proceso de revisión. Bajo tu responsabilidad puedes descargarla.
+          </q-banner>
+        </div>
+        <div v-else-if="aplication.published == true " class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-6 offset-xl-3 offset-lg-2">
+          <q-banner rounded  inline-actions class="text-black bg-primary q-mb-md">
+            Aplicación verificada por la comunidad !
+          </q-banner>
+        </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 offset-xl-2 offset-lg-2">
           <q-img
               v-bind:src="aplication.image_url"
@@ -27,11 +57,11 @@
             <q-space/>
             
             <q-btn type="a" v-bind:href="lastRelease" label="Descargar" color="primary" />
-            <q-badge align="middle">{{releases[0].tag_name}}</q-badge>
+           <!-- <q-badge align="middle">{{releases[0].tag_name}}</q-badge>-->
           </div>
         </div>
       </div>
-  </div>
+    </div>
     <div class="row">
       <div class="q-pa-xs col-xs-12 text-white col-lg-8 col-xl-8 offset-lg-2 offset-xl-2">
         <q-list dark padding bordered class="rounded-borders " style="max-width: 1500px">
@@ -74,7 +104,7 @@
                   <!--<li v-for="release in releases">
                          <a v-bind:href="release.zipball_url"> {{release.tag_name}} </a>
                       </li> -->
-                  <q-list dense bordered padding class="rounded-borders">
+                  <!--<q-list dense bordered padding class="rounded-borders">
                     <q-item clickable v-ripple v-for="(release, $index) in releases" :key="$index">
                       
                       <q-item-section>
@@ -83,7 +113,7 @@
                     </q-item>
 
                     
-                  </q-list>
+                  </q-list>-->
                 </div>
               </q-card-section>
             </q-card>
@@ -143,12 +173,14 @@
       </div>
     </div>!-->
   </div>
-  <!-- SI NO ESTA VERDIFICADA Y ES EL DUEñO !-->
+  <!-- SI NO ESTA VERDIFICADA Y ES EL DUEñO 
   <div v-else-if="aplication.published == false && usercheck[0].role == 1">
     <div class="q-pa-lg">
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-6 offset-xl-3 offset-lg-2">
-          <h6>Tu aplicación esta siendo revisada</h6>
+          <q-banner rounded  inline-actions class="text-white bg-red">
+            Tu aplicación esta siendo verificada
+          </q-banner>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 offset-xl-2 offset-lg-2">
           <q-img
@@ -177,7 +209,7 @@
           </div>
         </div>
       </div>
-  </div>
+    </div>
     <div class="row">
       <div class="q-pa-xs col-xs-12 text-white col-lg-8 col-xl-8 offset-lg-2 offset-xl-2">
         <q-list dark padding bordered class="rounded-borders " style="max-width: 1500px">
@@ -305,7 +337,7 @@
           </div>
         </div>
       </div>
-  </div>
+    </div>
     <div class="row">
       <div class="q-pa-xs col-xs-12 text-white col-lg-8 col-xl-8 offset-lg-2 offset-xl-2">
         <q-list dark padding bordered class="rounded-borders " style="max-width: 1500px">
@@ -398,10 +430,7 @@
       </div>
     </div> 
   </div>
-  <!-- ###############################################################################3
-    ###################################################################################3
-    ###################################################################################3!-->
-    <!-- SI NO ESTA VERDIFICADA Y ES REVISADOR !-->
+     SI NO ESTA VERDIFICADA Y ES REVISADOR 
   <div v-else-if="aplication.published == false && usercheck[0].role == 2">
     <div class="q-pa-lg">
       <div class="row">
@@ -450,7 +479,7 @@
           </div>
         </div>
       </div>
-  </div>
+    </div>
     <div class="row">
       <div class="q-pa-xs col-xs-12 text-white col-lg-8 col-xl-8 offset-lg-2 offset-xl-2">
         <q-list dark padding bordered class="rounded-borders " style="max-width: 1500px">
@@ -543,9 +572,9 @@
       </div>
     </div> 
   </div>
-    <div v-else-if="aplication.published == false">
-      <h6>Aplicación en proceso de revisión</h6>
-    </div>
+  <div v-else-if="aplication.published == false">
+    <h6>Aplicación en proceso de revisión</h6>!-->
+  </div>
 
 </template>
 
@@ -592,13 +621,13 @@ export default {
     }
   },
   beforeRouteUpdate(to, from, next) {
-    this.$axios.get("/api/v1/apps/"+this.$route.params.id+"/releases")
+    /*this.$axios.get("/api/v1/apps/"+this.$route.params.id+"/releases")
        .then(request => { this.releases = request.data 
 
           //this.autor = this.releases[0].author.login
           this.lastRelease = this.releases[0].zipball_url
           })
-        .catch(() => { alert('Something went wrong!') })
+        .catch(() => { alert('Something went wrong!') })*/
     this.$axios.get("/api/v1/apps/"+to.params.id+"")
     .then(request => { this.aplication = request.data
       })
@@ -616,13 +645,13 @@ export default {
       //make sure you always call next()
   },
   created () {
-    this.$axios.get("/api/v1/apps/"+this.$route.params.id+"/releases")
+    /*this.$axios.get("/api/v1/apps/"+this.$route.params.id+"/releases")
        .then(request => { this.releases = request.data 
 
           //this.autor = this.releases[0].author.login
           this.lastRelease = this.releases[0].zipball_url
           })
-        .catch(() => { alert('Something went wrong!') })
+        .catch(() => { alert('Something went wrong!') })*/
     this.$axios.get("/api/v1/apps/"+this.$route.params.id+"")
       .then(request => { this.aplication = request.data
         })
@@ -657,18 +686,33 @@ export default {
   },
   methods: {
     checkApp () {
-      console.log("dsadsad")
       this.approved = true
       var data = {"app_id": this.$route.params.id, "user_id": this.currentUser.id, "comment": this.comment, "approved": this.approved}
       var json = JSON.stringify(data);
       this.$axios.post("/api/v1/apps/approve",json)
       .then(response => { 
         this.completed = true
+        this.showNotif("center","primary")
       })
       .catch(error => {
           console.log("error")
+          this.showNotifError("center","bg-red")
         })
       
+    },
+    showNotif (position,color) {
+      this.$q.notify({
+        message: 'Gracias por tu aporte !',
+        position,
+        color
+      })
+    },
+    showNotifError (position,color) {
+      this.$q.notify({
+        message: 'No se pudo completar la solicitud.',
+        position,
+        color
+      })
     }
   }
 
